@@ -5,10 +5,12 @@ import michaelchursin.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Controller
-@RequestMapping()
 public class UserController {
 
     private final UserService userService;
@@ -29,10 +31,14 @@ public class UserController {
         return "new";
     }
 
-    @PostMapping()
-    public String create(@ModelAttribute("user") User user) {
-        userService.save(user);
-        return "redirect:/";
+    @PostMapping("/new")
+    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "new";
+        } else {
+            userService.save(user);
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/edit")
@@ -43,9 +49,13 @@ public class UserController {
     }
 
     @PostMapping("/{id}")
-    public String update(@RequestParam("id") int id, @ModelAttribute("user") User user) {
-        userService.update(id, user);
-        return "redirect:/";
+    public String update(@RequestParam("id") int id, @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        } else {
+            userService.update(id, user);
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/delete")
