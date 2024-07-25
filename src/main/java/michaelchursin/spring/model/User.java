@@ -6,7 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "users")
@@ -29,7 +33,7 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
-    @Digits(integer = 3, fraction = 0)
+    @Digits(integer = 3, fraction = 0, message = "Age must contain 1 - 3 digits")
     @Positive(message = "Age should be greater than 0!")
     @Column(name = "age")
     private int age;

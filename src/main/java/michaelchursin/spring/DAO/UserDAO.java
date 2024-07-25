@@ -1,11 +1,10 @@
-package michaelchursin.spring.service;
+package michaelchursin.spring.DAO;
 
 import michaelchursin.spring.model.User;
 
 import java.util.List;
 
-
-public interface UserService {
+public interface UserDAO {
     public List<User> findAll();
     public User findById(int id);
     public void save(User user);
