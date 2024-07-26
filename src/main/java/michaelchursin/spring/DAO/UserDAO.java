@@ -5,9 +5,9 @@ import michaelchursin.spring.model.User;
 import java.util.List;
 
 public interface UserDAO {
-    public List<User> findAll();
-    public User findById(int id);
-    public void save(User user);
-    public void update(int id, User user);
-    public void delete(int id);
+    List<User> findAll();
+    User findById(int id);
+    void save(User user);
+    void update(int id, User user);
+    void delete(int id);
 }

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
     private final UserDAO userDAO;
@@ -35,11 +36,15 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public void update(int id, User user) {
-        userDAO.update(id,user);
+        if ((userDAO.findById(id) != null) && ((user.getId() == id))) {
+            userDAO.update(id, user);
+        }
     }
 
     @Transactional
     public void delete(int id) {
-        userDAO.delete(id);
+        if (userDAO.findById(id) != null) {
+            userDAO.delete(id);
+        }
     }
 }
